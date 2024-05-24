@@ -1,10 +1,20 @@
 const webpack = require("@nativescript/webpack");
 
 module.exports = (env) => {
-	webpack.init(env);
+    webpack.init(env);
 
-	// Learn how to customize:
-	// https://docs.nativescript.org/webpack
+    // Add support for worker files
+    webpack.chainWebpack(config => {
+        config.module
+            .rule('worker')
+            .test(/\.(worker)\.(js|ts)$/)
+            .use('nativescript-worker-loader')
+            .loader('nativescript-worker-loader')
+            .options({ inline: true });
+    });
 
-	return webpack.resolveConfig();
+    // Learn how to customize:
+    // https://docs.nativescript.org/webpack
+
+    return webpack.resolveConfig();
 };

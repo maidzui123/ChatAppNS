@@ -9,3 +9,4 @@ export default {
     markingMode: 'none'
   }
 } as NativeScriptConfig;
+

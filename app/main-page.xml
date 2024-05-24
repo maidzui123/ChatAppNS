@@ -1,8 +1,14 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+<!-- <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+  <ActionBar title="Firebase Realtime Database" />
   <StackLayout>
-    <TextField id="email" hint="Email" keyboardType="email" autocorrect="false" autocapitalizationType="none" />
-    <TextField id="password" hint="Password" secure="true" />
-    <Button text="Sign In" tap="onSignInButtonTap" />
-    <Label id="messageLabel" />
+    <Button text="Write Data" tap="onWriteDataTap" />
+    <Button text="Read Data" tap="onReadDataTap" />
   </StackLayout>
+</Page> -->
+
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="onPageLoaded">
+    <ActionBar title="Main Page" />
+    <StackLayout>
+        <Button text="Go to Login" tap="navigateToLogin" />
+    </StackLayout>
 </Page>

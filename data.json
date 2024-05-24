@@ -1,0 +1,28 @@
+{
+    "users": {
+      "userId1": {
+        "email": "maiduy1908@gmail.com",
+        "friends": {
+          "userId2": true
+        }
+      }
+    },
+    "chats": {
+      "chatId1": {
+        "messages": {
+          "messageId1": {
+            "text": "Hello, World!",
+            "timestamp": "2021-01-01T12:00:00Z",
+            "senderId": "EWuN2Lyp6cRNJKybhTSJEP2fdG52"
+          }
+        }
+      }
+    },
+    "friend_requests": {
+      "userId2": {
+        "requestId1": {
+          "senderId": "EWuN2Lyp6cRNJKybhTSJEP2fdG52"
+        }
+      }
+    }
+  }

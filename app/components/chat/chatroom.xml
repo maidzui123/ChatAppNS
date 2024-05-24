@@ -1,0 +1,22 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="onPageLoaded">
+    <ActionBar title="Chat Room" />
+    <GridLayout rows="*, auto" columns="*, auto">
+        <ListView items="{{ messages }}" row="0" colSpan="2">
+            <ListView.itemTemplate>
+                <GridLayout columns="*, *" rows="auto" class="{{ senderId === $parents['Page'].currentUserId ? 'right' : 'left' }}">
+                    <Label text="{{ text }}" col="{{ senderId === $parents['Page'].currentUserId ? 1 : 0 }}" class="chat-bubble" visibility="{{ text ? 'visible' : 'collapse' }}" />
+                    <Image src="{{ imageSrc }}" col="{{ senderId === $parents['Page'].currentUserId ? 1 : 0 }}" visibility="{{ imageSrc ? 'visible' : 'collapse' }}" stretch="aspectFill" width="200" height="200" />
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+        <StackLayout orientation="horizontal" row="1" col="0" verticalAlignment="bottom">
+            <TextField hint="Type a message..." text="{{ messageText }}" width="40%" />
+            <Button text="Upload" tap="selectImage" width="20%" />
+            <Button text="⏎" tap="sendMessage" width="20%" class="send-button" />
+        </StackLayout>
+        <!-- <StackLayout orientation="vertical" row="2" colSpan="2">
+            <Button text="Download Image" tap="{{ downloadImage }}" />
+            <Image src="{{ downloadedImageSrc }}" />
+        </StackLayout> -->
+    </GridLayout>
+</Page>

@@ -1,0 +1,7 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="onPageLoaded">
+    <StackLayout>
+        <TextField hint="Email" keyboardType="email" text="{{ email }}" />
+        <TextField hint="Password" secure="true" text="{{ password }}" />
+        <Button text="Register" tap="{{ registerUser }}" />
+    </StackLayout>
+</Page>
