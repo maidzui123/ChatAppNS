@@ -17,23 +17,59 @@ Button.-primary {
 }
 
 .chat-bubble {
-    padding: 10;
+    padding:15;
     margin: 5;
+    font-size: 14;
     border-radius: 10;
 }
 
 .right .chat-bubble {
     background-color: #E0E0E0; /* Light gray for sender */
     horizontal-align: right;
+    border-bottom-right-radius: 0;
 }
 
 .left .chat-bubble {
     background-color: #0078D7; /* Blue for receiver */
     color: white;
     horizontal-align: left;
+    border-bottom-left-radius: 0;
+
 }
 
-#uploadImageButton {
+
+.input-msg {
+  width: 210;
+}
+
+.send-image {
+  height: 40;
+  width: 80;
+  background-color: #000;
+  border-radius: 20;
+  color: white;
+  margin: 5;
+}
+.send-msg {
+  height: 40;
+  width: 40;
+  font-size: 20;
+  background-color: #000;
+  border-radius: 20;
+  color: white;
+  margin: 5;
+}
+
+.btn-nav-login {
+  background-color: #05cad1;
+  color: white;
+  font-size: 16;
+  padding: 10;
+  border-radius: 5;
+  margin-top: 300;
+}
+
+.main-btn {
   background-color: #0078D7;
   color: white;
   font-size: 16;
@@ -41,16 +77,22 @@ Button.-primary {
   border-radius: 5;
 }
 
-#sendButton {
-  background-color: #28a745;
-  color: white;
+TextField {
   font-size: 16;
   padding: 10;
-  border-radius: 50%; /* Circle button */
+  border-radius: 5;
+  margin-bottom: 10;
 }
 
-#sendButton .send-button {
-  height: 40;
-  width: 40;
-  border-radius: 20;
+.user-list {
+  padding: 20;
+  font-size: 14;
+  margin: 5;
+  border-radius: 10;
+  border: none;
+  background-color: #E0E0E0;
+}
+
+.uploading {
+  filter: blur(1.5rem);
 }

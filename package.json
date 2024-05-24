@@ -12,6 +12,7 @@
     "@nativescript/firebase-storage": "^3.3.1",
     "@nativescript/imagepicker": "^3.1.1",
     "@nativescript/theme": "~3.0.2",
+    "nativescript-ui-listview": "^15.2.3",
     "nativescript-worker-loader": "^0.12.1"
   },
   "devDependencies": {

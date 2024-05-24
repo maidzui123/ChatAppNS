@@ -1,22 +1,19 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="onPageLoaded">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:listview="nativescript-ui-listview" loaded="onPageLoaded">
     <ActionBar title="Chat Room" />
     <GridLayout rows="*, auto" columns="*, auto">
-        <ListView items="{{ messages }}" row="0" colSpan="2">
-            <ListView.itemTemplate>
+        <listview:RadListView id="messagesListView" items="{{ messages }}" row="0" colSpan="2" reverseLayout="false">
+            <listview:RadListView.itemTemplate>
                 <GridLayout columns="*, *" rows="auto" class="{{ senderId === $parents['Page'].currentUserId ? 'right' : 'left' }}">
                     <Label text="{{ text }}" col="{{ senderId === $parents['Page'].currentUserId ? 1 : 0 }}" class="chat-bubble" visibility="{{ text ? 'visible' : 'collapse' }}" />
-                    <Image src="{{ imageSrc }}" col="{{ senderId === $parents['Page'].currentUserId ? 1 : 0 }}" visibility="{{ imageSrc ? 'visible' : 'collapse' }}" stretch="aspectFill" width="200" height="200" />
+                    <!-- <ActivityIndicator col="{{ senderId === $parents['Page'].currentUserId ? 1 : 0 }}" busy="{{ isLoading }}" visibility="{{ imageSrc ? 'visible' : 'collapse' }}" row="0" /> -->
+                    <Image src="{{ imageSrc }}" col="{{ senderId === $parents['Page'].currentUserId ? 1 : 0 }}" visibility="{{ imageSrc ? 'visible' : 'collapse' }}" stretch="aspectFill" width="200" height="200" borderRadius="20" />
                 </GridLayout>
-            </ListView.itemTemplate>
-        </ListView>
+            </listview:RadListView.itemTemplate>
+        </listview:RadListView>
         <StackLayout orientation="horizontal" row="1" col="0" verticalAlignment="bottom">
-            <TextField hint="Type a message..." text="{{ messageText }}" width="40%" />
-            <Button text="Upload" tap="selectImage" width="20%" />
-            <Button text="⏎" tap="sendMessage" width="20%" class="send-button" />
+            <TextField class="input-msg" hint="Type a message..." text="{{ messageText }}"  />
+            <Button text="Upload" tap="selectImage" class="send-image"  />
+            <Button text="➤" tap="sendMessage"  class="send-msg" />
         </StackLayout>
-        <!-- <StackLayout orientation="vertical" row="2" colSpan="2">
-            <Button text="Download Image" tap="{{ downloadImage }}" />
-            <Image src="{{ downloadedImageSrc }}" />
-        </StackLayout> -->
     </GridLayout>
 </Page>

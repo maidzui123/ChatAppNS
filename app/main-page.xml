@@ -7,8 +7,8 @@
 </Page> -->
 
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="onPageLoaded">
-    <ActionBar title="Main Page" />
+    <ActionBar title="Chat App" />
     <StackLayout>
-        <Button text="Go to Login" tap="navigateToLogin" />
+        <Button class="btn-nav-login" text="Go to Login" tap="navigateToLogin" />
     </StackLayout>
 </Page>

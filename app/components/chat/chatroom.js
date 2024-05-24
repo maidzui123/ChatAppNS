@@ -16,6 +16,14 @@ const viewModel = fromObject({
   currentUserId: "",
 });
 
+function scrollToBottom(page) {
+  const listView = page.getViewById("messagesListView");
+  const messages = page.bindingContext.get("messages");
+  if (messages.length > 0) {
+    listView.scrollToIndex(messages.length - 1);
+  }
+}
+
 export function onPageLoaded(args) {
   const page = args.object;
   const context = page.navigationContext;
@@ -26,13 +34,28 @@ export function onPageLoaded(args) {
     listenToMessages(context.chatId);
   }
   page.bindingContext = viewModel;
+  page.getViewById("messagesListView").once("loaded", () => {
+    scrollToBottom(page);
+  });
+  viewModel.messages.on(ObservableArray.changeEvent, () => {
+    setTimeout(() => {
+      scrollToBottom(page);
+    }, 0);
+  });
 }
 
 export function listenToMessages(chatId) {
   const messagesRef = firebase().database().ref(`chats/${chatId}/messages`);
   messagesRef.on("child_added", (snapshot) => {
     const message = snapshot.val();
+  
     if (message && (message.text || message.imageSrc) && message.senderId) {
+      if (viewModel.messages.length > 0) {
+        const lastMessage = viewModel.messages.getItem(viewModel.messages.length - 1);
+        if (lastMessage.isUploading) {
+          viewModel.messages.pop();
+        }
+      }
       viewModel.messages.push(message);
     } else {
       console.error("Invalid message data received:", message);
@@ -79,10 +102,18 @@ export function selectImage() {
       if (selected) {
         // uploadImageToFirebase(selected)
         const worker = new Worker("imageUploader.js");
-        worker.postMessage({ imagePath: selected.path });
+        worker.postMessage({
+          imagePath: selected.path,
+          chatId: viewModel.get("chatId"),
+          senderId: viewModel.get("currentUserId"),
+        });
         // handle incoming messages from the worker
         worker.onmessage = function (message) {
           if (message.data.success) {
+            console.log(
+              "🚀 ~ .then ~ message.data.success:",
+              message.data.success
+            );
             uploadBase64ToFirebase(message.data.base64);
           } else {
             console.error("Image upload error:", msg.data.error);
@@ -96,43 +127,52 @@ export function selectImage() {
 }
 
 async function uploadBase64ToFirebase(base64String) {
-  try{
-    const storageRef = firebase().storage().ref();
-  const imageName = `image_${Date.now()}.jpg`;
-  const imageRef = storageRef.child(imageName);
+  try {
+    console.log(
+      "🚀 ~ file: chatroom.js ~ line 136 ~ uploadBase64ToFirebase ~ base64String",
+      base64String
+    );
+    // const storageRef = firebase().storage().ref();
+    // const imageName = `image_${Date.now()}.jpg`;
+    // const imageRef = storageRef.child(imageName);
 
-  // Upload base64 string to Firebase Storage
-  const snapshot = await imageRef.putString(base64String, "base64", {
-    contentType: "image/jpeg",
-  });
-  await new Promise(resolve => setTimeout(resolve, 10000));
+    const placeholderMessage = {
+      senderId: viewModel.get("currentUserId"),
+      imageSrc: `data:image/jpeg;base64,${base64String}`,
+      isUploading: true,
+      type: "image",
+    };
+    viewModel.messages.push(placeholderMessage);
 
-  const imageUrl = await firebase().storage().ref(imageName).getDownloadURL();
-  console.log("🚀 ~ uploadBase64ToFirebase ~ imageUrl:", imageUrl);
-  await sendMessageWithImageUrl(imageUrl);
-  }
-  catch(error){
+    // await imageRef.putString(base64String, "base64", {
+    //   contentType: "image/jpeg",
+    // });
+    // await new Promise((resolve) => setTimeout(resolve, 12000));
+
+    // const imageUrl = await firebase().storage().ref(imageName).getDownloadURL();
+
+    // await sendMessageWithImageUrl(imageUrl);
+  } catch (error) {
     console.error("Upload base64 image error:", error);
   }
 }
 
-async function sendMessageWithImageUrl(imageUrl) {
-  try {
-    console.log("🚀 ~ sendMessageWithImageUrl ~ imageUrl:", imageUrl);
-
-    const chatId = viewModel.get("chatId");
-    const newMessageRef = firebase()
-      .database()
-      .ref(`chats/${chatId}/messages`)
-      .push();
-    await newMessageRef.set({
-      imageSrc: imageUrl,
-      timestamp: new Date().toISOString(),
-      senderId: firebase().auth().currentUser.uid,
-      type: "image",
-    });
-    console.log("Image message sent successfully");
-  } catch (error) {
-    console.error("Send image message error:", error);
-  }
-}
+// async function sendMessageWithImageUrl(imageUrl) {
+//   try {
+//     const chatId = viewModel.get("chatId");
+//     const newMessageRef = firebase()
+//       .database()
+//       .ref(`chats/${chatId}/messages`)
+//       .push();
+//     await newMessageRef.set({
+//       imageSrc: imageUrl,
+//       timestamp: new Date().toISOString(),
+//       senderId: firebase().auth().currentUser.uid,
+//       type: "image",
+//     });
+//     viewModel.messages.pop();
+//     console.log("Image message sent successfully");
+//   } catch (error) {
+//     console.error("Send image message error:", error);
+//   }
+// }

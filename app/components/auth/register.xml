@@ -2,6 +2,6 @@
     <StackLayout>
         <TextField hint="Email" keyboardType="email" text="{{ email }}" />
         <TextField hint="Password" secure="true" text="{{ password }}" />
-        <Button text="Register" tap="{{ registerUser }}" />
+        <Button class="main-btn" text="Register" tap="{{ registerUser }}" />
     </StackLayout>
 </Page>
