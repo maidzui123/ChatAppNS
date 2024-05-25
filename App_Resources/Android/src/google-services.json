@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "169296320212",
+    "firebase_url": "https://chatapp-bf379-default-rtdb.firebaseio.com",
+    "project_id": "chatapp-bf379",
+    "storage_bucket": "chatapp-bf379.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169296320212:android:ef1f04a46b5fe7e4564d41",
+        "android_client_info": {
+          "package_name": "org.nativescript.TestFireBase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3vb6nTqgXfCNQEHnJVW8LSWfMNmsZ1PM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169296320212:android:e4aff73956f18f98564d41",
+        "android_client_info": {
+          "package_name": "org.nativescript.chatapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3vb6nTqgXfCNQEHnJVW8LSWfMNmsZ1PM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
