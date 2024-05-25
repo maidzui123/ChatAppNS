@@ -28,6 +28,7 @@ export function onPageLoaded(args) {
   const page = args.object;
   const context = page.navigationContext;
   if (context && context.chatId) {
+    viewModel.messages.value?.clear();
     viewModel.messages.splice(0);
     viewModel.set("currentUserId", firebase().auth().currentUser.uid);
     viewModel.set("chatId", context.chatId);
@@ -47,6 +48,8 @@ export function onPageLoaded(args) {
 export function listenToMessages(chatId) {
   const messagesRef = firebase().database().ref(`chats/${chatId}/messages`);
   viewModel.messages.value?.clear();
+  viewModel.messages.splice(0);
+
   messagesRef.on("child_added", (snapshot) => {
     const message = snapshot.val();
 

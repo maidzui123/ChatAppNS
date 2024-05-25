@@ -23,7 +23,7 @@ self.onmessage = async function (message, viewModel) {
       await imageRef.putString(base64, "base64", {
         contentType: "image/jpeg",
       });
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      await new Promise((resolve) => setTimeout(resolve, 5000));
       console.log("Image uploaded successfully");
       const imageUrl = await firebase()
         .storage()
