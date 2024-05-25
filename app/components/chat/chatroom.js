@@ -28,7 +28,7 @@ export function onPageLoaded(args) {
   const page = args.object;
   const context = page.navigationContext;
   if (context && context.chatId) {
-    viewModel.messages.splice(0); // Clear existing messages
+    viewModel.messages.splice(0);
     viewModel.set("currentUserId", firebase().auth().currentUser.uid);
     viewModel.set("chatId", context.chatId);
     listenToMessages(context.chatId);
@@ -46,12 +46,15 @@ export function onPageLoaded(args) {
 
 export function listenToMessages(chatId) {
   const messagesRef = firebase().database().ref(`chats/${chatId}/messages`);
+  viewModel.messages.value?.clear();
   messagesRef.on("child_added", (snapshot) => {
     const message = snapshot.val();
-  
+
     if (message && (message.text || message.imageSrc) && message.senderId) {
       if (viewModel.messages.length > 0) {
-        const lastMessage = viewModel.messages.getItem(viewModel.messages.length - 1);
+        const lastMessage = viewModel.messages.getItem(
+          viewModel.messages.length - 1
+        );
         if (lastMessage.isUploading) {
           viewModel.messages.pop();
         }
@@ -110,10 +113,7 @@ export function selectImage() {
         // handle incoming messages from the worker
         worker.onmessage = function (message) {
           if (message.data.success) {
-            console.log(
-              "🚀 ~ .then ~ message.data.success:",
-              message.data.success
-            );
+            console.log("🚀 ~ .then ~ message:", message);
             uploadBase64ToFirebase(message.data.base64);
           } else {
             console.error("Image upload error:", msg.data.error);
@@ -128,14 +128,6 @@ export function selectImage() {
 
 async function uploadBase64ToFirebase(base64String) {
   try {
-    console.log(
-      "🚀 ~ file: chatroom.js ~ line 136 ~ uploadBase64ToFirebase ~ base64String",
-      base64String
-    );
-    // const storageRef = firebase().storage().ref();
-    // const imageName = `image_${Date.now()}.jpg`;
-    // const imageRef = storageRef.child(imageName);
-
     const placeholderMessage = {
       senderId: viewModel.get("currentUserId"),
       imageSrc: `data:image/jpeg;base64,${base64String}`,
@@ -143,15 +135,6 @@ async function uploadBase64ToFirebase(base64String) {
       type: "image",
     };
     viewModel.messages.push(placeholderMessage);
-
-    // await imageRef.putString(base64String, "base64", {
-    //   contentType: "image/jpeg",
-    // });
-    // await new Promise((resolve) => setTimeout(resolve, 12000));
-
-    // const imageUrl = await firebase().storage().ref(imageName).getDownloadURL();
-
-    // await sendMessageWithImageUrl(imageUrl);
   } catch (error) {
     console.error("Upload base64 image error:", error);
   }

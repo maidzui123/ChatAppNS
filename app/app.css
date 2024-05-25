@@ -1,42 +1,52 @@
-﻿@import '@nativescript/theme/css/core.css';
-@import '@nativescript/theme/css/default.css';
+﻿@import "@nativescript/theme/css/core.css";
+@import "@nativescript/theme/css/default.css";
 
 Button.-primary {
   font-size: 18;
 }
-
+ActionBar {
+  background-color: #05cad1;
+}
+Page {
+  background-color: #212121;
+}
+.main-label {
+  font-size: 30;
+  color: #05cad1;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 50;
+}
 .send-button {
-    width: 40;
-    height: 40;
-    border-radius: 20; /* Half of width and height to make it circle */
-    background-color: black; /* Change as needed */
-    color: white;
-    font-size: 24;
-    horizontal-align: right;
-    vertical-align: center;
+  width: 40;
+  height: 40;
+  border-radius: 20; /* Half of width and height to make it circle */
+  background-color: black; /* Change as needed */
+  color: white;
+  font-size: 24;
+  horizontal-align: right;
+  vertical-align: center;
 }
 
 .chat-bubble {
-    padding:15;
-    margin: 5;
-    font-size: 14;
-    border-radius: 10;
+  padding: 12;
+  margin: 5;
+  font-size: 16;
+  border-radius: 10;
 }
 
 .right .chat-bubble {
-    background-color: #E0E0E0; /* Light gray for sender */
-    horizontal-align: right;
-    border-bottom-right-radius: 0;
+  background-color: #e0e0e0; /* Light gray for sender */
+  horizontal-align: right;
+  border-bottom-right-radius: 0;
 }
 
 .left .chat-bubble {
-    background-color: #0078D7; /* Blue for receiver */
-    color: white;
-    horizontal-align: left;
-    border-bottom-left-radius: 0;
-
+  background-color: #05cad1; /* Blue for receiver */
+  color: white;
+  horizontal-align: left;
+  border-bottom-left-radius: 0;
 }
-
 
 .input-msg {
   width: 210;
@@ -70,7 +80,7 @@ Button.-primary {
 }
 
 .main-btn {
-  background-color: #0078D7;
+  background-color: #05cad1;
   color: white;
   font-size: 16;
   padding: 10;
@@ -78,6 +88,8 @@ Button.-primary {
 }
 
 TextField {
+  placeholder-color: white;
+  color: white;
   font-size: 16;
   padding: 10;
   border-radius: 5;
@@ -90,7 +102,8 @@ TextField {
   margin: 5;
   border-radius: 10;
   border: none;
-  background-color: #E0E0E0;
+  background-color: #e0e0e0;
+  box-shadow: inset;
 }
 
 .uploading {

@@ -7,8 +7,10 @@
 </Page> -->
 
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="onPageLoaded">
-    <ActionBar title="Chat App" />
+    <ActionBar title="Make by Binh, Duy, Hien"/>
     <StackLayout>
+      <Label text="CHAT APP DEMO" class="main-label" />
+
         <Button class="btn-nav-login" text="Go to Login" tap="navigateToLogin" />
     </StackLayout>
 </Page>
